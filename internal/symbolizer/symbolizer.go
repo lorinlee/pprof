@@ -294,6 +294,7 @@ func newMapping(prof *profile.Profile, obj plugin.ObjTool, ui plugin.UI, force b
 
 	missingBinaries := false
 	for midx, m := range prof.Mapping {
+		ui.Print("[TEST] mapping file: ", m.File)
 		if !mappings[m] {
 			continue
 		}
@@ -325,6 +326,7 @@ func newMapping(prof *profile.Profile, obj plugin.ObjTool, ui plugin.UI, force b
 		}
 
 		name := filepath.Base(m.File)
+		ui.Print("[TEST] located mapping file: ", m.File)
 		f, err := obj.Open(m.File, m.Start, m.Limit, m.Offset)
 		if err != nil {
 			ui.PrintErr("Local symbolization failed for ", name, ": ", err)
@@ -340,6 +342,7 @@ func newMapping(prof *profile.Profile, obj plugin.ObjTool, ui plugin.UI, force b
 		mt.segments[m] = f
 	}
 	if missingBinaries {
+		ui.Print("[TEST] mapping size ", len(prof.Mapping))
 		ui.PrintErr("Some binary filenames not available. Symbolization may be incomplete.\n" +
 			"Try setting PPROF_BINARY_PATH to the search path for local binaries.")
 	}

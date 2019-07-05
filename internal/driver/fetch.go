@@ -78,6 +78,8 @@ func fetchProfiles(s *source, o *plugin.Options) (*profile.Profile, error) {
 		}
 	}
 
+	// print origin profile
+	o.UI.Print("[TEST] ", p.String())
 	// Symbolize the merged profile.
 	if err := o.Sym.Symbolize(s.Symbolize, m, p); err != nil {
 		return nil, err
